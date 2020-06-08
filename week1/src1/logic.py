@@ -60,7 +60,7 @@ class Symbol(Sentence):
         try:
             return bool(model[self.name])
         except KeyError:
-            raise EvaluationException(f"variable {self.name} not in model")
+            raise Exception(f"variable {self.name} not in model")
 
     def formula(self):
         return self.name
@@ -252,9 +252,15 @@ def model_check(knowledge, query):
             model_false = model.copy()
             model_false[p] = False
 
+            print()
+            print('model true',model_true)
+            print('model false',model_false)
+
             # Ensure entailment holds in both models
-            return (check_all(knowledge, query, remaining, model_true) and
+            result =  (check_all(knowledge, query, remaining, model_true) and
                     check_all(knowledge, query, remaining, model_false))
+            print('result',result)
+            return result
 
     # Get all symbols in both knowledge and query
     symbols = set.union(knowledge.symbols(), query.symbols())

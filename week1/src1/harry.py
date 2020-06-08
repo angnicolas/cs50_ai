@@ -11,4 +11,5 @@ knowledge = And(
     dumbledore
 )
 
-print(model_check(knowledge, rain))
+print(knowledge.symbols())
+# print(model_check(knowledge, rain))
